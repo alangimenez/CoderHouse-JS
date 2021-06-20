@@ -127,6 +127,7 @@ let mesesMax = 0;
 let mesesMin = 0;
 let montoMax = 0;
 let montoMin = 0;
+const datosDePrestamo = [];
 
 let tipoPrestamo = document.getElementById("tipoPrestamo");
 tipoPrestamo.onchange = () => { cambiar() };
@@ -135,18 +136,16 @@ function cambiar() {
     let valor = document.getElementById("tipoPrestamo").value;
     switch (valor) {
         case "0":
-            document.getElementById("caracteristica").innerHTML = "Prestamo personal, a una tasa de interes del x%, con un plazo mínimo de 6 meses y máximo de 96 meses, pudiendo solicitar un mínimo de 1.000 UVAs y un máximo de 15.000 UVAs"
+            document.getElementById("caracteristica").innerHTML = "Prestamo personal, a una tasa de interes del x%, con un plazo mínimo de 3 meses y máximo de 60 meses, pudiendo solicitar un mínimo de 500 UVAs y un máximo de 10.000 UVAs"
             break;
         case "1":
-            document.getElementById("caracteristica").innerHTML = "Prestamo hipotecario, a una tasa de interes del x%, con un plazo mínimo de 6 meses y máximo de 96 meses, pudiendo solicitar un mínimo de 1.000 UVAs y un máximo de 15.000 UVAs"
+            document.getElementById("caracteristica").innerHTML = "Prestamo hipotecario, a una tasa de interes del x%, con un plazo mínimo de 60 meses y máximo de 360 meses, pudiendo solicitar un mínimo de 10.000 UVAs y un máximo de 150.000 UVAs"
             break;
         case "2":
             document.getElementById("caracteristica").innerHTML = "Prestamo prendario, a una tasa de interes del x%, con un plazo mínimo de 6 meses y máximo de 96 meses, pudiendo solicitar un mínimo de 1.000 UVAs y un máximo de 15.000 UVAs"
             break;
     }
 }
-
-
 
 function calculoHipotecario() {
     let capital = document.getElementById("capitalH").value;
@@ -180,19 +179,29 @@ function calculoHipotecario() {
     }
     if (capital == "" || plazo == "") {
         document.getElementById("msjError").innerHTML = "Ud no ha ingresado datos en ambos campos. Por favor, reintentelo.";
+        document.getElementById("msjError").style.color = "red";
+        document.getElementById("capitalH").style.boxShadow = "0px 0px 5px 5px rgba(255,0,0,0.75)"
+        document.getElementById("plazoH").style.boxShadow = "0px 0px 5px 5px rgba(255,0,0,0.75)"
     } else if (capital < montoMin || capital > montoMax) {
-        document.getElementById("msjError").innerHTML = "El capital ingresado esta fuera de lo permitido, por favor, reintentelo.";
+        document.getElementById("msjError").innerHTML = "El capital ingresado esta fuera de lo permitido, el monto mínimo a solicitar es de " + montoMin + ", mientras que el máximo es de " + montoMax + ". Por favor, reintentelo.";
+        document.getElementById("msjError").style.color = "red";
+        document.getElementById("capitalH").style.boxShadow = "0px 0px 5px 5px rgba(255,0,0,0.75)";
+        document.getElementById("plazoH").style.boxShadow = "0px 0px 0px 0px rgba(255,0,0,0.75)";
     } else if (plazo < mesesMin || plazo > mesesMax) {
-        document.getElementById("msjError").innerHTML = "El plazo ingresado esta fuera de lo permitido, por favor, reintentanlo";
+        document.getElementById("msjError").innerHTML = "El plazo ingresado esta fuera de lo permitido, el plazo mínimo a solicitar es de " + mesesMin + ", mientras que el máximo es de " + mesesMax + ". Por favor, reintentanlo";
+        document.getElementById("msjError").style.color = "red";
+        document.getElementById("plazoH").style.boxShadow = "0px 0px 5px 5px rgba(255,0,0,0.75)";
+        document.getElementById("capitalH").style.boxShadow = "0px 0px 0px 0px rgba(255,0,0,0.75)";
     }
     else {
         document.getElementById("msjError").innerHTML = "";
+        document.getElementById("capitalH").style.boxShadow = "0px 0px 0px 0px rgba(255,0,0,0.75)";
+        document.getElementById("plazoH").style.boxShadow = "0px 0px 0px 0px rgba(255,0,0,0.75)";
         prestamoObject(capital, plazo);
     }
 }
 
 function prestamoObject(capital, plazo) {
-    const datosDePrestamo = [];
     for (plazo; plazo > 0; plazo--) {
         datosDePrestamo.push({
             capital: capital,
@@ -203,5 +212,57 @@ function prestamoObject(capital, plazo) {
         });
         capital = (capital * 1.01) - ((capital * 1.01) / plazo);
     }
-    console.log(datosDePrestamo);
+    construirTabla ();
+    console.log(datosDePrestamo[0].capital);
+}
+
+function construirTabla () {
+    let tabla = document.createElement("table");
+    let body = document.getElementById("cuerpo");
+    body.appendChild(tabla);
+    tabla.setAttribute("id", "table");
+    let trhead = document.createElement("tr");
+    body.appendChild(trhead);
+    let tdhead1 = document.createElement("td");
+    tdhead1.innerHTML = "Saldo pendiente al inicio";
+    tabla.appendChild(tdhead1);
+    let tdhead2 = document.createElement("td");
+    tdhead2.innerHTML = "Intereses sobre saldo";
+    tabla.appendChild(tdhead2);
+    let tdhead3 = document.createElement("td");
+    tdhead3.innerHTML = "Saldo con intereses";
+    tabla.appendChild(tdhead3);
+    let tdhead4 = document.createElement("td");
+    tdhead4.innerHTML = "Cuota a pagar";
+    tabla.appendChild(tdhead4);
+    let tdhead5 = document.createElement("td");
+    tdhead5.innerHTML = "Remanente post pago";
+    tabla.appendChild(tdhead5);
+    let prestamo = datosDePrestamo.length;
+    for (let i = 0; i < prestamo; i++) {
+        let tr1 = document.createElement("tr");
+        tabla.appendChild(tr1);
+        let info = document.createElement("td");
+/*         let capitalDec = datosDePrestamo[i].capital;
+        let capitalDec2 = capitalDec.toFixed(2); */
+        info.innerHTML = redondear(datosDePrestamo[i].capital);
+        tr1.appendChild(info);
+        let info4 = document.createElement("td");
+        info4.innerHTML = redondear(datosDePrestamo[i].intereses);
+        tr1.appendChild(info4);
+        let info5 = document.createElement("td");
+        info5.innerHTML = redondear(datosDePrestamo[i].capitalPostInt);
+        tr1.appendChild(info5);
+        let info2 = document.createElement("td");
+        info2.innerHTML = redondear(datosDePrestamo[i].cuota);
+        tr1.appendChild(info2);
+        let info3 = document.createElement("td");
+        info3.innerHTML = redondear(datosDePrestamo[i].saldoRem);
+        tr1.appendChild(info3);
+    }
+}
+
+function redondear (numero) {
+    let num = parseFloat(numero).toFixed(2);
+    return(num);
 }
