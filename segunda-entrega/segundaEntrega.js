@@ -128,6 +128,7 @@ let mesesMin = 0;
 let montoMax = 0;
 let montoMin = 0;
 const datosDePrestamo = [];
+let datoSession = 0;
 
 let tipoPrestamo = document.getElementById("tipoPrestamo");
 tipoPrestamo.onchange = () => { cambiar() };
@@ -192,8 +193,7 @@ function calculoHipotecario() {
         document.getElementById("msjError").style.color = "red";
         document.getElementById("plazoH").style.boxShadow = "0px 0px 5px 5px rgba(255,0,0,0.75)";
         document.getElementById("capitalH").style.boxShadow = "0px 0px 0px 0px rgba(255,0,0,0.75)";
-    }
-    else {
+    }else {
         document.getElementById("msjError").innerHTML = "";
         document.getElementById("capitalH").style.boxShadow = "0px 0px 0px 0px rgba(255,0,0,0.75)";
         document.getElementById("plazoH").style.boxShadow = "0px 0px 0px 0px rgba(255,0,0,0.75)";
@@ -202,6 +202,9 @@ function calculoHipotecario() {
 }
 
 function prestamoObject(capital, plazo) {
+    if (datosDePrestamo.length > 0) {
+        datosDePrestamo.length = 0;
+    }
     for (plazo; plazo > 0; plazo--) {
         datosDePrestamo.push({
             capital: capital,
@@ -212,7 +215,7 @@ function prestamoObject(capital, plazo) {
         });
         capital = (capital * 1.01) - ((capital * 1.01) / plazo);
     }
-    construirTabla ();
+    controlCuadro ();
     console.log(datosDePrestamo[0].capital);
 }
 
@@ -222,29 +225,27 @@ function construirTabla () {
     body.appendChild(tabla);
     tabla.setAttribute("id", "table");
     let trhead = document.createElement("tr");
-    body.appendChild(trhead);
+    tabla.appendChild(trhead);
     let tdhead1 = document.createElement("td");
     tdhead1.innerHTML = "Saldo pendiente al inicio";
-    tabla.appendChild(tdhead1);
+    trhead.appendChild(tdhead1);
     let tdhead2 = document.createElement("td");
     tdhead2.innerHTML = "Intereses sobre saldo";
-    tabla.appendChild(tdhead2);
+    trhead.appendChild(tdhead2);
     let tdhead3 = document.createElement("td");
     tdhead3.innerHTML = "Saldo con intereses";
-    tabla.appendChild(tdhead3);
+    trhead.appendChild(tdhead3);
     let tdhead4 = document.createElement("td");
     tdhead4.innerHTML = "Cuota a pagar";
-    tabla.appendChild(tdhead4);
+    trhead.appendChild(tdhead4);
     let tdhead5 = document.createElement("td");
     tdhead5.innerHTML = "Remanente post pago";
-    tabla.appendChild(tdhead5);
+    trhead.appendChild(tdhead5);
     let prestamo = datosDePrestamo.length;
     for (let i = 0; i < prestamo; i++) {
         let tr1 = document.createElement("tr");
         tabla.appendChild(tr1);
         let info = document.createElement("td");
-/*         let capitalDec = datosDePrestamo[i].capital;
-        let capitalDec2 = capitalDec.toFixed(2); */
         info.innerHTML = redondear(datosDePrestamo[i].capital);
         tr1.appendChild(info);
         let info4 = document.createElement("td");
@@ -265,4 +266,27 @@ function construirTabla () {
 function redondear (numero) {
     let num = parseFloat(numero).toFixed(2);
     return(num);
+}
+
+function guardar () {
+    sessionStorage.setItem(datoSession,JSON.stringify(datosDePrestamo));
+    console.log(sessionStorage.getItem(datoSession));
+    datoSession = datoSession + 1;
+}
+
+let orden = 0;
+function controlCuadro() {
+    if (orden == 0) {
+        construirTabla();
+        orden++;
+    } else {
+        eliminarInfo();
+        construirTabla();
+        orden++;
+    }
+}
+
+function eliminarInfo() {
+    let eliminar = document.getElementById("table");
+    eliminar.parentNode.removeChild(eliminar);
 }
