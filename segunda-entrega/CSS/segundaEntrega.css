@@ -1,0 +1,68 @@
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  height: 3rem;
+  background-color: #00f7ff;
+  line-height: 3rem;
+}
+
+table,
+tr,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+h1,
+h2,
+p {
+  text-align: center;
+}
+
+#pills-tab {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#pills-tabContent {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.nav-item {
+  margin-right: 3rem;
+  margin-left: 3rem;
+}
+
+ul {
+  text-align: center;
+}
+
+ul li {
+  display: block;
+}
+
+.calculadora {
+  text-align: center;
+}
+
+.opcion {
+  width: auto;
+  margin: auto;
+}
+/*# sourceMappingURL=segundaEntrega.css.map */
