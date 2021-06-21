@@ -8,6 +8,7 @@ let datoSession = 0;
 let tipoPrestamo = document.getElementById("tipoPrestamo");
 tipoPrestamo.onchange = () => { cambiar() };
 
+//para cambiar descripción del prestamo según lo seleccionado.
 function cambiar() {
     let valor = document.getElementById("tipoPrestamo").value;
     switch (valor) {
@@ -27,7 +28,7 @@ function calculoHipotecario() {
     let capital = document.getElementById("capitalH").value;
     let plazo = document.getElementById("plazoH").value;
     let tipoPrestamo = document.getElementById("tipoPrestamo").value;
-    switch (tipoPrestamo) {
+    switch (tipoPrestamo) { //setea los parametros limite de cada tipo de prestamo según lo seleccionado
         case "0":
             console.log("Personal");
             mesesMax = 60;
@@ -53,7 +54,7 @@ function calculoHipotecario() {
             console.log(mesesMax, mesesMin, montoMax, montoMin);
             break;
     }
-    if (capital == "" || plazo == "") {
+    if (capital == "" || plazo == "") { //controla posibles errores y los marca en el HTML
         document.getElementById("msjError").innerHTML = "Ud no ha ingresado datos en ambos campos. Por favor, reintentelo.";
         document.getElementById("msjError").style.color = "red";
         document.getElementById("capitalH").style.boxShadow = "0px 0px 5px 5px rgba(255,0,0,0.75)"
@@ -76,6 +77,7 @@ function calculoHipotecario() {
     }
 }
 
+//genera un array con el cuadro de marcha progresivo, a su vez valida que no haya datos previamente cargados (si los hay, lo elimina)
 function prestamoObject(capital, plazo) {
     if (datosDePrestamo.length > 0) {
         datosDePrestamo.length = 0;
@@ -94,6 +96,7 @@ function prestamoObject(capital, plazo) {
     console.log(datosDePrestamo[0].capital);
 }
 
+//genera cuadro de marcha progresiva en HTML
 function construirTabla() {
     let tabla = document.createElement("table");
     let body = document.getElementById("cuerpo");
@@ -138,11 +141,13 @@ function construirTabla() {
     }
 }
 
+//funcion para redondear numeros aparte
 function redondear(numero) {
     let num = parseFloat(numero).toFixed(2);
     return (num);
 }
 
+//guarda datos de un prestamo calculado en sessionStorage
 let contador = 0;
 function guardar() {
     sessionStorage.setItem(datoSession, JSON.stringify(datosDePrestamo));
@@ -158,6 +163,7 @@ function guardar() {
     }
 }
 
+//recupera la info del sessionStorage y la refleja en una tabla (elimina la tabla anterior que figure en el HTML)
 function recuperarInfo() {
     eliminarInfo();
     console.log(sessionStorage.getItem(datoSession));
@@ -214,6 +220,7 @@ function recuperarInfo() {
 
 }
 
+//controla que a la hora de generar un cuadro desde cero, no haya un cuadro anterior (si lo hay, lo elimina)
 let orden = 0;
 function controlCuadro() {
     if (orden == 0) {
@@ -226,6 +233,7 @@ function controlCuadro() {
     }
 }
 
+//elimina el cuadro de marcha progresiva
 function eliminarInfo() {
     let eliminar = document.getElementById("table");
     eliminar.parentNode.removeChild(eliminar);
