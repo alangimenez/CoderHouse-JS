@@ -170,10 +170,10 @@ function recuperarInfo() {
     const parsear = sessionStorage.getItem(datoSession);
     const parseado = JSON.parse(parsear);
     console.log(parseado);
-    nuevaTabla();
+    nuevaTabla(); 
 
 
-    function nuevaTabla() {
+    function nuevaTabla () {
         let tabla = document.createElement("table");
         let body = document.getElementById("cuerpo");
         body.appendChild(tabla);
@@ -237,103 +237,4 @@ function controlCuadro() {
 function eliminarInfo() {
     let eliminar = document.getElementById("table");
     eliminar.parentNode.removeChild(eliminar);
-}
-
-const datosGuar = [];
-let rut = 0;
-$("#botonTipoDos").click(function () {
-    console.log(this.id);
-    console.log($("#capitalH").val());
-    console.log($("#plazoH").val());
-    console.log($("#tipoPrestamo").val());
-    rut = rut + 1;
-    datosGuar.push({
-        identificacion: rut,
-        tipoPrestamo: $("#tipoPrestamo").val(), // 0 personal, 1 hipotecario, 2 prendario
-        capital: $("#capitalH").val(),
-        plazo: $("#plazoH").val(),
-    });
-    $("#destino").append(`<button id='btn${datosGuar[rut - 1].identificacion}'>Prestamo `+clasificacion(datosGuar[rut - 1].tipoPrestamo)+ ` Capital ${datosGuar[rut - 1].capital} Plazo ${datosGuar[rut - 1].plazo} meses</button>`)
-    console.log(datosGuar);
-    $(`#btn${datosGuar[rut - 1].identificacion}`).click( function () {
-/*         let prueba = JSON.stringify($(`#btn${datosGuar[rut-1].identificacion}`));
-        console.log(prueba);
-        console.log("Aprete el boton "+ $(`#btn${datosGuar[rut-1].identificacion}`)) */
-        eliminarInfo();
-        nuevaTabla();
-        function nuevaTabla() {
-            let tabla = document.createElement("table");
-            let body = document.getElementById("cuerpo");
-            body.appendChild(tabla);
-            tabla.setAttribute("id", "table");
-            let trhead = document.createElement("tr");
-            tabla.appendChild(trhead);
-            let tdhead1 = document.createElement("td");
-            tdhead1.innerHTML = "Saldo pendiente al inicio";
-            trhead.appendChild(tdhead1);
-            let tdhead2 = document.createElement("td");
-            tdhead2.innerHTML = "Intereses sobre saldo";
-            trhead.appendChild(tdhead2);
-            let tdhead3 = document.createElement("td");
-            tdhead3.innerHTML = "Saldo con intereses";
-            trhead.appendChild(tdhead3);
-            let tdhead4 = document.createElement("td");
-            tdhead4.innerHTML = "Cuota a pagar";
-            trhead.appendChild(tdhead4);
-            let tdhead5 = document.createElement("td");
-            tdhead5.innerHTML = "Remanente post pago";
-            trhead.appendChild(tdhead5);
-            let tiempo = datosGuar[rut - 1].plazo;
-            let valor = datosGuar[rut - 1].capital;
-            const nuevaTabla = [];
-            for (tiempo; tiempo > 0; tiempo--) {
-                nuevaTabla.push({
-                    capital: valor,
-                    intereses: (valor * 0.01),
-                    capitalPostInt: valor * 1.01,
-                    cuota: (valor * 1.01) / tiempo,
-                    saldoRem: valor - (valor / tiempo)
-                });
-                valor = (valor * 1.01) - ((valor * 1.01) / tiempo);
-            }
-            tiempo = datosGuar[rut - 1].plazo;
-            for (let j = 0; j < tiempo; j++) {
-                let tr1 = document.createElement("tr");
-                tabla.appendChild(tr1);
-                let info = document.createElement("td");
-                info.innerHTML = redondear(nuevaTabla[j].capital);
-                tr1.appendChild(info);
-                let info4 = document.createElement("td");
-                info4.innerHTML = redondear(nuevaTabla[j].intereses);
-                tr1.appendChild(info4);
-                let info5 = document.createElement("td");
-                info5.innerHTML = redondear(nuevaTabla[j].capitalPostInt);
-                tr1.appendChild(info5);
-                let info2 = document.createElement("td");
-                info2.innerHTML = redondear(nuevaTabla[j].cuota);
-                tr1.appendChild(info2);
-                let info3 = document.createElement("td");
-                info3.innerHTML = redondear(nuevaTabla[j].saldoRem);
-                tr1.appendChild(info3);
-            }
-        }    
-    });
-})
-
-//devuelve que tipo de prestamo es para los botones
-function clasificacion(numero) {
-    let salida = "hola";
-    switch(numero) {
-        case "0":
-            salida = " Personal "
-            break;
-        case "1":
-            salida = " Hipotecario "
-            break;
-        case "2":
-            salida = " Prendario "
-            break;
-
-    }
-    return(salida);
 }
