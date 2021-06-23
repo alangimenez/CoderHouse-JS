@@ -1,0 +1,44 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 3rem;
+    background-color: rgb(0, 247, 255);
+    line-height: 3rem;
+}
+table,
+tr,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+h1,
+h2,
+p {
+    text-align: center;
+}
+#pills-tab{
+    display: flex;
+    justify-content: center;
+}
+#pills-tabContent{
+    display: flex;
+    justify-content: center;
+}
+.nav-item{
+    margin-right: 3rem;
+    margin-left: 3rem;
+}
+ul{
+    text-align: center;
+    li{
+        display: block;
+    }
+}
+.calculadora{
+    text-align: center;
+}
+.opcion{
+    width: auto;
+    margin: auto;
+}
