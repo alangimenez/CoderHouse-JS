@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio Nueve - Incorporar eventos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="CSS/segundaEntrega.css">
+</head>
+
+<body id="cuerpo">
+    <header>
+        <div class="header">
+            <div><a href="#nosotros">Sobre nosostros</a></div>
+            <div><a href="#calculadora">Calculadora</a></div>
+            <div><a href="#requisitos">Requisitos</a></div>
+            <div><a href="#contacto">Contacto</a></div>
+        </div>
+    </header>
+    <section>
+        <div>
+            <img src="" alt="">
+            <h1>La casa del prestamo</h1>
+        </div>
+        <div id="nosotros">
+            <h2>Sobre nosotros</h2>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim perferendis a placeat aperiam quisquam
+                magnam ut deleniti iste, debitis dignissimos deserunt eum accusamus fugit voluptate aspernatur tempore
+                corrupti, necessitatibus quos.
+                Possimus reiciendis eius saepe rerum totam quia eveniet quo debitis cupiditate placeat soluta, ut illum
+                harum sed maiores exercitationem mollitia vero voluptatem necessitatibus nam minima neque error.
+                Asperiores, necessitatibus commodi!
+                Ipsa vel nesciunt sequi, a nostrum autem ullam quia. Ducimus assumenda ut atque autem nobis vero, nemo
+                quae non nesciunt consectetur possimus tempore, voluptates similique aspernatur voluptatum perferendis
+                est fugit!</p>
+        </div>
+        <div id="calculadora">
+            <h2>Calcule su prestamo</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium officiis eveniet repudiandae
+                possimus! Minus dolorum blanditiis modi quod quos nostrum architecto, dignissimos dolor qui,
+                consequuntur facilis sint laudantium incidunt ut?
+                Repellat nobis iste quaerat repellendus sequi in necessitatibus modi eius ducimus explicabo ea saepe
+                illum, unde vero culpa, numquam reprehenderit, quae odit nisi blanditiis impedit ex earum aliquid
+                soluta? Tempore?
+                Quisquam placeat similique animi, temporibus expedita ipsam eveniet, consectetur repellat dolores
+                ducimus dolor deleniti cupiditate qui excepturi debitis perferendis. Harum, a deleniti. Ea numquam et
+                nulla at in accusamus provident?</p>
+
+            <!--Pestañas para los distintos tipos de prestamos-->
+
+            <select class="form-select opcion" aria-label="Default select example" id="tipoPrestamo">
+                <option value="0" selected>Personal</option>
+                <option value="1">Hipotecario</option>
+                <option value="2">Prendario</option>
+            </select>
+
+            <div class="calculadora">
+                <p id="caracteristica">Prestamo personal, a una tasa de interes del x%, con un plazo mínimo de 3 meses y
+                    máximo de 60 meses, pudiendo solicitar un mínimo de 500 UVAs y un máximo de 10.000 UVAs</p>
+                <div>
+                    <label for="capitalH">Monto solicitado</label>
+                    <input type="number" id="capitalH">
+                </div>
+                <div>
+                    <label for="plazoH">Plazo del prestamo</label>
+                    <input type="number" id="plazoH">
+                </div>
+                <button type="submit" id="botonTipoUno" onclick="calculoHipotecario()">Enviar información tipo
+                    1</button>
+                <button type="submit" id="botonTipoDos" onclick="guardar()">Guardar información</button>
+
+                <p id="msjError"></p>
+            </div>
+            <div id="requisitos">
+                <h2>Requisitos</h2>
+                <ul>
+                    <li>Ser mayor de 18 años</li>
+                    <li>Si es empleado, acreditar antiguedad laboral mínima de 1 año y presentar los últimos 6 recibos
+                        de sueldo</li>
+                    <li>Si es autónomo, presentar su último declaración jurada de ganancias y certificación de ingresos
+                    </li>
+                    <li>No contar con historial crediticio negativo en el último año</li>
+                    <li>En el caso de presentar codeudores, los mismos deberán cumplir los mismos requisitos según su
+                        situación laboral</li>
+                </ul>
+            </div>
+            <div id="contacto">
+                <h2>Contacto</h2>
+                <p>Puede encontrarnos de la siguiente manera:</p>
+            </div>
+            <!--             campos originales para ingresar datos
+            <div>
+                <label for="capital">Monto solicitado</label>
+                <input type="number" id="capital">
+            </div>
+            <div>
+                <label for="cuotas">Cuotas solicitadas</label>
+                <input type="number" id="cuotas">
+            </div> -->
+            <p id="resultado"></p>
+        </div>
+    </section>
+    <footer>
+        <h2>La casa del prestamo</h3>
+            <p>Datos de dirección y redes</p>
+    </footer>
+    <script src="segundaEntrega.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
