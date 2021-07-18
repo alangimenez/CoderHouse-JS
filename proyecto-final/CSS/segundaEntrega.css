@@ -130,5 +130,14 @@ p {
 
 .tablaa {
   text-align: center;
+  display: none;
+}
+
+#msjError {
+  display: none;
+}
+
+#error {
+  display: none;
 }
 /*# sourceMappingURL=segundaEntrega.css.map */

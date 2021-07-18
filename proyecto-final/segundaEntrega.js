@@ -50,9 +50,10 @@ function calculoHipotecario() {
     }
     if (capital == "" || plazo == "") { //controla posibles errores y los marca en el HTML
         document.getElementById("msjError").innerHTML = "Ud no ha ingresado datos en ambos campos. Por favor, reintentelo.";
-        document.getElementById("msjError").style.color = "red";
+/*         document.getElementById("msjError").style.color = "red"; */
         document.getElementById("capitalH").style.boxShadow = "0px 0px 5px 5px rgba(255,0,0,0.75)"
         document.getElementById("plazoH").style.boxShadow = "0px 0px 5px 5px rgba(255,0,0,0.75)"
+        $("#msjError").fadeIn("slow");
     } else if (capital < montoMin || capital > montoMax) {
         document.getElementById("msjError").innerHTML = "El capital ingresado esta fuera de lo permitido, el monto mínimo a solicitar es de " + montoMin + ", mientras que el máximo es de " + montoMax + ". Por favor, reintentelo.";
         document.getElementById("msjError").style.color = "red";
@@ -145,10 +146,11 @@ function construirTabla() {
         tr1.appendChild(info3);
     }
     $("#paraTablas").append(`<button id="solicitarPrestamo" class="btn btn-dark btn-align" onclick="solicitarPrestamo()">Solicitar prestamo</button>`)
+    $(".tablaa").fadeIn("slow");
 }
 
 function solicitarPrestamo() {
-    $("#datosPersonales").show();
+    $("#datosPersonales").fadeIn("slow");
 }
 
 $("form").submit(function (e) {
@@ -199,10 +201,15 @@ function redondear(numero) {
 
 //guarda datos de un prestamo calculado en sessionStorage
 let contador = 0;
+let id = 0;
 function guardar() {
-    sessionStorage.setItem(datoSession, JSON.stringify(datosDePrestamo));
+    sessionStorage.setItem("dato"+id, JSON.stringify({
+        id: id,
+        capital: document.getElementById("capitalH").value,
+        plazo: document.getElementById("plazoH").value,
+        tipoPrestamo: document.getElementById("tipoPrestamo").value,
+    }));
     if (contador == 0) {
-        console.log(document.getElementById("boton"));
         let boton = document.createElement("button");
         let body = document.getElementById("cuerpo");
         body.appendChild(boton);
@@ -211,6 +218,7 @@ function guardar() {
         boton.setAttribute("onclick", "recuperarInfo()");
         contador = contador + 1;
     }
+    console.log(sessionStorage.getItem(datoSession));
 }
 
 //recupera la info del sessionStorage y la refleja en una tabla (elimina la tabla anterior que figure en el HTML)
@@ -415,3 +423,27 @@ function clasificacion(numero) {
     }
     return (salida);
 }
+
+const dolar = "https://www.dolarsi.com/api/api.php?type=valoresprincipales";
+//Agregamos un botón con jQuery
+$("body").append('<button id="btn2">GET2</button>');
+//Escuchamos el evento click del botón agregado
+$("#btn2").click(() => {
+    $.get(dolar, function (respuesta, estado) {
+        if (estado === "success") {
+            let datoUno = redondear(respuesta[4].casa.compra);
+            let datoDos = redondear(respuesta[4].casa.venta);
+            $("body").append(`<div>
+                                <h3>${respuesta[0].casa.nombre}</h3>
+                                <h3>${respuesta[0].casa.compra}</h3>
+                                <h3>${respuesta[0].casa.venta}</h3>
+                                <h3>${respuesta[3].casa.nombre}</h3>
+                                <h3>${respuesta[3].casa.compra}</h3>
+                                <h3>${respuesta[3].casa.venta}</h3>
+                                <h3>${respuesta[4].casa.nombre}</h3>
+                                <h3>`+datoUno+`</h3>
+                                <h3>`+datoDos+`</h3>
+                                </div>`);
+        }
+    });
+})
