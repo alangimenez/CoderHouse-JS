@@ -23,6 +23,21 @@ h2 {
         color: black;
     }
 }
+.cotizaciones{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: black;
+    color: white;
+    div{
+        margin: 0px 0.25rem;
+        p {
+            display: inline;
+            font-size: 0.65rem;
+            line-height: 34px;
+        }
+    }
+}
 table,
 tr,
 td {
@@ -61,7 +76,9 @@ ul {
 }
 .datosPersonales {
     display: none;
+    width: 75%;
     text-align: center;
+    margin: 0 auto;
 }
 p{
     padding: 0rem 3rem;
@@ -87,6 +104,7 @@ p{
 .input_formato{
     width: auto;
     display: inline;
+    margin: 0.35rem 0rem;
 }
 .tabla_primerFila{
     background-color:rgb(30, 255, 0);
@@ -101,4 +119,15 @@ p{
 }
 #error{
     display: none;
+}
+.btn-margin{
+    margin: 0.5rem 0rem;
+}
+
+.botton {
+    display: block;
+    margin: 3px auto;
+}
+.destino{
+    margin: 0.5rem 0rem;
 }

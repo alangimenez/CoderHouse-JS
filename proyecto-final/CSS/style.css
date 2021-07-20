@@ -34,6 +34,30 @@ h2 {
   color: black;
 }
 
+.cotizaciones {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  background-color: black;
+  color: white;
+}
+
+.cotizaciones div {
+  margin: 0px 0.25rem;
+}
+
+.cotizaciones div p {
+  display: inline;
+  font-size: 0.65rem;
+  line-height: 34px;
+}
+
 table,
 tr,
 td {
@@ -89,7 +113,9 @@ ul li {
 
 .datosPersonales {
   display: none;
+  width: 75%;
   text-align: center;
+  margin: 0 auto;
 }
 
 p {
@@ -122,6 +148,7 @@ p {
 .input_formato {
   width: auto;
   display: inline;
+  margin: 0.35rem 0rem;
 }
 
 .tabla_primerFila {
@@ -140,4 +167,17 @@ p {
 #error {
   display: none;
 }
-/*# sourceMappingURL=segundaEntrega.css.map */
+
+.btn-margin {
+  margin: 0.5rem 0rem;
+}
+
+.botton {
+  display: block;
+  margin: 3px auto;
+}
+
+.destino {
+  margin: 0.5rem 0rem;
+}
+/*# sourceMappingURL=style.css.map */
